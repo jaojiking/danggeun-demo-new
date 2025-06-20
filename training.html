@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>댕근 - 애견 훈련소</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 애견 훈련소</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
         body {
@@ -49,6 +50,15 @@
         .btn-primary:hover {
             background-color: #1e40af;
         }
+
+        /* Styles for scrollable navigation bar (smooth scrolling on mobile) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+        }
+        .nav-scrollable-container {
+            -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+        }
     </style>
 </head>
 <body>
@@ -56,28 +66,27 @@
         <h1 class="text-4xl font-bold">댕근 - 애견 훈련소</h1>
     </header>
     <nav class="p-4 text-center text-white">
-        <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-            <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300 font-semibold underline">애견 훈련소</a></li>
+        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
+            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
+            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
+            <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
+            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
+            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
+            <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
+            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
+            <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
+            <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
+            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 팬션/호텔</a></li>
+            <li><a href="training.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">애견 훈련소</a></li>
         </ul>
     </nav>
     <main class="container mx-auto px-6 py-10 text-center">
         <h2 class="text-3xl font-semibold mb-6 text-blue-900">전문가가 함께하는 애견 훈련소</h2>
         <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-            댕근 추천 훈련소에서 전문 강사의 체계적인 교육을 받아보세요.  
+            댕근 추천 훈련소에서 전문 강사의 체계적인 교육을 받아보세요.  
             강아지의 성격과 특성에 맞춘 맞춤형 훈련 프로그램을 제공합니다.
         </p>
 
-        <!-- 이미지 경로 수정 -->
         <img src="images/training.jpg" alt="애견 훈련소 이미지" class="content-img" />
 
         <p class="text-gray-600 max-w-2xl mx-auto mt-6">
