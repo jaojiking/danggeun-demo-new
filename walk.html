@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>댕근 - 동반 산책</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 동반 산책</title>
+  <meta name="robots" content="noindex, nofollow" /> 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     body {
@@ -26,7 +27,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 20px;
-      max-width: 300px;
+      /* max-width: 300px; <--- 이 줄을 삭제했어요! Tailwind 클래스에서 너비를 조절할 거예요. */
       transition: transform 0.3s ease;
     }
     .card:hover {
@@ -39,6 +40,14 @@
       object-fit: cover;
       border-radius: 10px;
     }
+    /* 스크롤 가능한 내비게이션 바 스타일 (모바일에서 부드러운 스크롤 효과) */
+    .nav-scrollable-container::-webkit-scrollbar {
+      display: none; /* 크롬, 사파리 등 스크롤바 숨기기 */
+    }
+    .nav-scrollable-container {
+      -ms-overflow-style: none;  /* IE, 엣지 스크롤바 숨기기 */
+      scrollbar-width: none;  /* 파이어폭스 스크롤바 숨기기 */
+    }
   </style>
 </head>
 <body>
@@ -46,20 +55,19 @@
     <h1 class="text-4xl font-bold">댕근 - 동반 산책</h1>
   </header>
 
-  <!-- ✅ 내비게이션 -->
   <nav class="p-4 text-center text-white">
-    <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-      <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
-      <li><a href="walk.html" class="hover:text-blue-300 font-semibold underline">동반 산책</a></li>
-      <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
-      <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
-      <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
-      <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
-      <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
-      <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
-      <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
-      <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
-      <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+    <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
+      <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
+      <li><a href="walk.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">동반 산책</a></li>
+      <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
+      <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
+      <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
+      <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
+      <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
+      <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
+      <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
+      <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 펜션/호텔</a></li>
+      <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
     </ul>
   </nav>
 
@@ -70,8 +78,7 @@
     </section>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <!-- 카드 1 -->
-      <div class="card mx-auto">
+      <div class="card mx-auto w-full sm:max-w-xs">
         <img src="images/dog1.jpg" alt="산책 견주1" class="card-img">
         <h3 class="text-xl font-bold text-blue-800 mt-2">포메라니안 ♂ / 2살</h3>
         <p class="text-gray-600 mt-2">성격 온순. 위치: 강남역 근처<br>산책 시간: 오후 6시~8시</p>
@@ -79,8 +86,7 @@
         <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">산책 요청</button>
       </div>
 
-      <!-- 카드 2 -->
-      <div class="card mx-auto">
+      <div class="card mx-auto w-full sm:max-w-xs">
         <img src="images/dog2.jpg" alt="산책 견주2" class="card-img">
         <h3 class="text-xl font-bold text-blue-800 mt-2">리트리버 ♀ / 3살</h3>
         <p class="text-gray-600 mt-2">활동적, 사교성 좋음. 위치: 삼암동</p>
@@ -88,27 +94,7 @@
         <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">산책 요청</button>
       </div>
 
-      <!-- 카드 3 -->
-      <div class="card mx-auto">
+      <div class="card mx-auto w-full sm:max-w-xs">
         <img src="images/dog3.jpg" alt="산책 견주3" class="card-img">
         <h3 class="text-xl font-bold text-blue-800 mt-2">비숑프리제 ♀ / 1살</h3>
-        <p class="text-gray-600 mt-2">털 많고 순함. 위치: 여의도</p>
-        <p class="text-green-600 mt-1 text-sm">✅ 도보 체크 & 포인트 적립 가능</p>
-        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">산책 요청</button>
-      </div>
-    </section>
-
-    <!-- 산책 중 나눔/거래 -->
-    <section class="mt-12 text-center">
-      <h3 class="text-2xl font-semibold text-blue-900 mb-2">산책 중 나눔 & 중고 거래</h3>
-      <p class="text-gray-600 mb-4">산책 중 필요 없는 물건 나누거나 거래해보세요!</p>
-      <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">무료나눔 등록</button>
-      <button class="ml-4 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">중고거래 등록</button>
-    </section>
-  </main>
-
-  <footer class="p-5 text-center text-white">
-    <p>© 2025 댕근. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+        <p
