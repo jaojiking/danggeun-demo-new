@@ -2,7 +2,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>댕근 - 보험/장례</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
         body {
@@ -21,6 +23,7 @@
         nav a:hover {
             color: #93c5fd;
         }
+        /* Custom CSS styles now primarily for appearance, not layout */
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -37,8 +40,6 @@
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 20px;
-            max-width: 320px;
-            margin: 10px auto;
             transition: transform 0.3s ease;
             text-align: center;
         }
@@ -64,20 +65,15 @@
             font-size: 0.95rem;
             min-height: 60px;
         }
-        .container-flex {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 24px;
-            padding: 20px 0;
+        /* .container-flex and @media (max-width: 640px) styles have been removed. */
+
+        /* Styles for scrollable navigation bar (smooth scrolling on mobile) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
         }
-        @media (max-width: 640px) {
-            .card {
-                max-width: 90%;
-            }
-            .card-img {
-                height: 180px;
-            }
+        .nav-scrollable-container {
+            -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
         }
     </style>
 </head>
@@ -86,18 +82,18 @@
         <h1 class="text-4xl font-bold">댕근 - 보험/장례</h1>
     </header>
     <nav class="p-4 text-center text-white">
-        <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-            <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300 font-semibold underline">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
+            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
+            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
+            <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
+            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
+            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
+            <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
+            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
+            <li><a href="insurance.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">보험/장례</a></li>
+            <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
+            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 팬션/호텔</a></li>
+            <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
         </ul>
     </nav>
     <main class="container mx-auto px-6 py-10 text-center">
@@ -106,23 +102,23 @@
             사랑하는 강아지를 위한 최적의 보험과 장례 서비스를 한 곳에서 만나보세요.<br/>
             갑작스러운 사고부터 마지막 순간까지 댕근이 함께 합니다.
         </p>
-        <div class="container-flex">
-            <div class="card">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="card w-full max-w-sm mx-auto">
                 <img src="images/insurance_plan.jpg" alt="강아지 보험" class="card-img" />
                 <div class="card-title">맞춤형 강아지 보험</div>
                 <div class="card-desc">다양한 보장 옵션으로 우리 강아지에게 딱 맞는 보험을 선택하세요.</div>
             </div>
-            <div class="card">
+            <div class="card w-full max-w-sm mx-auto">
                 <img src="images/claims_service.jpg" alt="보험 청구" class="card-img" />
                 <div class="card-title">간편한 보험 청구</div>
                 <div class="card-desc">스마트한 모바일 청구 시스템으로 빠르고 간편하게 보상받으세요.</div>
             </div>
-            <div class="card">
+            <div class="card w-full max-w-sm mx-auto">
                 <img src="images/pet_funeral.jpg" alt="애견 장례" class="card-img" />
                 <div class="card-title">애견 장례 서비스</div>
                 <div class="card-desc">존중과 애정을 담아 우리 아이의 마지막을 아름답게 기억하세요.</div>
             </div>
-            <div class="card">
+            <div class="card w-full max-w-sm mx-auto">
                 <img src="images/memorial_goods.png" alt="추모 용품" class="card-img" />
                 <div class="card-title">추모 및 기념 용품</div>
                 <div class="card-desc">특별한 추억을 위한 다양한 추모 상품과 기념품을 제공합니다.</div>
