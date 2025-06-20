@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>댕근 - 미용/병원</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 미용/병원</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
         body {
@@ -26,7 +27,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 20px;
-            max-width: 320px;
+            /* max-width: 320px; 및 margin: 10px auto;는 Tailwind가 처리합니다. */
             transition: transform 0.3s ease;
             text-align: center;
         }
@@ -52,87 +53,73 @@
             font-size: 0.95rem;
             min-height: 60px;
         }
-        .container-flex {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 24px;
-            padding: 20px 0;
+        /* .container-flex 및 @media (max-width: 640px) 스타일은 Tailwind 그리드로 대체되어 제거되었습니다. */
+
+        /* 스크롤 가능한 네비게이션 바 스타일 (모바일에서 부드러운 스크롤) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none; /* Webkit 브라우저 (Chrome, Safari)에서 스크롤바 숨기기 */
         }
-        @media (max-width: 640px) {
-            .service-card {
-                max-width: 90%;
-            }
-            .service-img {
-                height: 180px;
-            }
+        .nav-scrollable-container {
+            -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
+            scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
         }
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
     <header class="p-5 text-center">
         <h1 class="text-4xl font-bold">댕근 - 미용/병원</h1>
     </header>
 
-    <!-- 네비게이션 -->
     <nav class="p-4 text-center text-white">
-        <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-            <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300 font-semibold underline">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
+            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
+            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
+            <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
+            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
+            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
+            <li><a href="grooming.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">미용/병원</a></li>
+            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
+            <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
+            <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
+            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 팬션/호텔</a></li>
+            <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
         </ul>
     </nav>
 
-    <!-- 본문 -->
     <main class="container mx-auto px-6 py-10 text-center">
         <h2 class="text-3xl font-semibold mb-6 text-blue-900">미용/병원 서비스</h2>
         <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
             신뢰할 수 있는 애견 미용과 병원 정보를 확인하고 예약해보세요.
         </p>
-        <div class="container-flex">
-            <!-- 카드 1 -->
-            <div class="service-card">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="service-card w-full max-w-sm mx-auto">
                 <img src="images/grooming1.jpeg" alt="애견 미용실 1" class="service-img" />
                 <div class="service-title">럭셔리 애견 미용실</div>
                 <div class="service-desc">전문 미용사와 함께하는 맞춤형 케어 서비스.</div>
             </div>
 
-            <!-- 카드 2 -->
-            <div class="service-card">
+            <div class="service-card w-full max-w-sm mx-auto">
                 <img src="images/hospital1.jpg" alt="애견 병원 1" class="service-img" />
                 <div class="service-title">동물 전문 병원</div>
                 <div class="service-desc">최신 의료 장비와 전문 수의사 상주.</div>
             </div>
 
-            <!-- 카드 3 -->
-            <div class="service-card">
+            <div class="service-card w-full max-w-sm mx-auto">
                 <img src="images/grooming2.jpg" alt="애견 미용실 2" class="service-img" />
                 <div class="service-title">친절한 미용 서비스</div>
                 <div class="service-desc">스트레스 없는 편안한 미용 경험 제공.</div>
             </div>
 
-            <!-- 카드 4 -->
-            <div class="service-card">
+            <div class="service-card w-full max-w-sm mx-auto">
                 <img src="images/hospital2.jpg" alt="애견 병원 2" class="service-img" />
                 <div class="service-title">24시간 응급 병원</div>
                 <div class="service-desc">언제든지 믿고 맡길 수 있는 응급 진료 서비스.</div>
             </div>
         </div>
-    </main>
+        </main>
 
-    <!-- 푸터 -->
     <footer class="p-5 text-center text-white">
         <p>© 2025 댕근. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
