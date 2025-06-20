@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>댕근 - 공동 구매</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 공동 구매</title>
+  <meta name="robots" content="noindex, nofollow" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     body {
@@ -14,6 +15,9 @@
     }
     nav {
       background-color: #1e293b;
+    }
+    nav a:hover {
+      color: #93c5fd;
     }
     .card {
       background-color: white;
@@ -39,6 +43,14 @@
       color: #4b5563;
       margin-bottom: 2rem;
     }
+    /* 스크롤 가능한 내비게이션 바 스타일 (모바일에서 부드러운 스크롤 효과) */
+    .nav-scrollable-container::-webkit-scrollbar {
+      display: none; /* 크롬, 사파리 등 스크롤바 숨기기 */
+    }
+    .nav-scrollable-container {
+      -ms-overflow-style: none;  /* IE, 엣지 스크롤바 숨기기 */
+      scrollbar-width: none;  /* 파이어폭스 스크롤바 숨기기 */
+    }
   </style>
 </head>
 <body>
@@ -47,18 +59,18 @@
   </header>
 
   <nav class="p-4 text-center text-white">
-    <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
-      <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
-      <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
-      <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
-      <li><a href="groupbuy.html" class="hover:text-blue-300 font-semibold underline">공동 구매</a></li>
-      <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
-      <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
-      <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
-      <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
-      <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
-      <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
-      <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+    <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
+      <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
+      <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
+      <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
+      <li><a href="groupbuy.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">공동 구매</a></li>
+      <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
+      <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
+      <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
+      <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
+      <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
+      <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 펜션/호텔</a></li>
+      <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
     </ul>
   </nav>
 
@@ -68,42 +80,38 @@
       <p class="section-desc">
         품질 좋은 애견용품을 특별가에! 일정 수량 이상 모이면 공동구매가 성사됩니다.
       </p>
-  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-  <!-- Product Card 1 -->
-  <div class="card overflow-hidden">
-    <img src="images/group_food.jpg" alt="강아지 사료" class="w-full h-48 object-cover" />
-    <div class="p-5">
-      <h3 class="text-xl font-bold text-gray-800">프리미엄 강아지 사료</h3>
-      <p class="text-gray-600 mt-2">공동 구매가: 25,000원 (정가 40,000원)</p>
-      <p class="text-sm text-gray-500 mt-1">10명 이상 참여 시 구매 확정</p>
-      <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
-    </div>
-  </div>
+      <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        <div class="card overflow-hidden w-full max-w-sm mx-auto">
+          <img src="images/group_food.jpg" alt="강아지 사료" class="w-full h-48 object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-gray-800">프리미엄 강아지 사료</h3>
+            <p class="text-gray-600 mt-2">공동 구매가: 25,000원 (정가 40,000원)</p>
+            <p class="text-sm text-gray-500 mt-1">10명 이상 참여 시 구매 확정</p>
+            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
+          </div>
+        </div>
 
-  <!-- Product Card 2 -->
-  <div class="card overflow-hidden">
-    <img src="images/group_shampoo.png" alt="강아지 샴푸" class="w-full h-48 object-cover" />
-    <div class="p-5">
-      <h3 class="text-xl font-bold text-gray-800">천연 애견 샴푸</h3>
-      <p class="text-gray-600 mt-2">공동 구매가: 9,900원 (정가 18,000원)</p>
-      <p class="text-sm text-gray-500 mt-1">5명 이상 참여 시 구매 확정</p>
-      <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
-    </div>
-  </div>
+        <div class="card overflow-hidden w-full max-w-sm mx-auto">
+          <img src="images/group_shampoo.png" alt="강아지 샴푸" class="w-full h-48 object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-gray-800">천연 애견 샴푸</h3>
+            <p class="text-gray-600 mt-2">공동 구매가: 9,900원 (정가 18,000원)</p>
+            <p class="text-sm text-gray-500 mt-1">5명 이상 참여 시 구매 확정</p>
+            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
+          </div>
+        </div>
 
-  <!-- Product Card 3 -->
-  <div class="card overflow-hidden">
-    <img src="images/group_treat.jpg" alt="강아지 간식" class="w-full h-48 object-cover" />
-    <div class="p-5">
-      <h3 class="text-xl font-bold text-gray-800">유기농 애견 간식</h3>
-      <p class="text-gray-600 mt-2">공동 구매가: 7,500원 (정가 12,000원)</p>
-      <p class="text-sm text-gray-500 mt-1">20개 이상 판매 시 진행</p>
-      <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
-    </div>
-  </div>
-</div>
-
-  </main>
+        <div class="card overflow-hidden w-full max-w-sm mx-auto">
+          <img src="images/group_treat.jpg" alt="강아지 간식" class="w-full h-48 object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-gray-800">유기농 애견 간식</h3>
+            <p class="text-gray-600 mt-2">공동 구매가: 7,500원 (정가 12,000원)</p>
+            <p class="text-sm text-gray-500 mt-1">20개 이상 판매 시 진행</p>
+            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">참여하기</button>
+          </div>
+        </div>
+      </div>
+      </main>
 
   <footer class="p-5 text-center text-white">
     <p>© 2025 댕근. All rights reserved.</p>
