@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>댕근 - 교배/입양</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9fafb;
+    }
+    header, footer {
+      background-color: #1e40af;
+    }
+    nav {
+      background-color: #1e293b;
+    }
+    nav a:hover {
+      color: #93c5fd;
+    }
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .card-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #1e40af;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-top: 8px;
+      min-height: 60px;
+    }
+    .card-buttons {
+      margin-top: 10px;
+    }
+    .card-buttons button {
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="p-5 text-center">
+    <h1 class="text-4xl font-bold text-white">댕근 - 교배/입양</h1>
+  </header>
+
+  <!-- 네비게이션 -->
+  <nav class="p-4 text-center text-white">
+    <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
+      <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
+      <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
+      <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
+      <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
+      <li><a href="adopt.html" class="text-blue-300 underline">교배/입양</a></li>
+      <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
+      <li><a href="health.html" class="hover:text-blue-300">건강 체크</a></li>
+      <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
+      <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
+      <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
+      <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+    </ul>
+  </nav>
+
+  <!-- 본문 -->
+  <main class="container mx-auto px-6 py-10">
+    <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">입양/교배 강아지 목록</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 카드 반복 -->
+      <div class="card">
+        <img src="images/dog6.jpg" alt="강아지" class="card-img" />
+        <div class="card-title">시츄 ♀ / 1살</div>
+        <div class="card-desc">아기 같은 성격의 시츄. 예방접종 완료. 가족을 찾고 있어요.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/dog4.png" alt="강아지" class="card-img" />
+        <div class="card-title">푸들 ♂ / 2살</div>
+        <div class="card-desc">활발하고 똑똑한 성격. 중소형견과 궁합 좋아요.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/dog3.jpg" alt="강아지" class="card-img" />
+        <div class="card-title">비숑 ♀ / 3살</div>
+        <div class="card-desc">털이 복슬복슬하고 순한 성격. 교배 경험 있음.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/dog7.jpg" alt="강아지" class="card-img" />
+        <div class="card-title">웰시코기 ♂ / 4살</div>
+        <div class="card-desc">활발하고 애교 많은 친구예요. 입양 문의 주세요.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/dog8.jpg" alt="강아지" class="card-img" />
+        <div class="card-title">스피츠 ♀ / 3살</div>
+        <div class="card-desc">사람을 좋아하고 말 잘 듣는 친구입니다. 입양 희망.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/dog9.jpeg" alt="강아지" class="card-img" />
+        <div class="card-title">말티즈 ♂ / 5살</div>
+        <div class="card-desc">조용하고 순한 성격. 함께 산책 좋아하는 스타일입니다.</div>
+        <div class="card-buttons">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
+          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 입양 신청 폼 -->
+    <section class="mt-12">
+      <h3 class="text-xl font-bold text-blue-700 mb-4">입양 신청</h3>
+      <form class="bg-white rounded-lg shadow p-6 space-y-4 max-w-xl mx-auto">
+        <div>
+          <label for="name" class="block font-medium text-gray-700">이름</label>
+          <input type="text" id="name" class="w-full border rounded px-4 py-2" required />
+        </div>
+        <div>
+          <label for="phone" class="block font-medium text-gray-700">연락처</label>
+          <input type="tel" id="phone" class="w-full border rounded px-4 py-2" required />
+        </div>
+        <div>
+          <label for="message" class="block font-medium text-gray-700">간단한 소개</label>
+          <textarea id="message" class="w-full border rounded px-4 py-2" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          신청하기
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="p-5 text-center text-white mt-10">
+    <p>© 2025 댕근. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>댕근 - 건강 체크</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb;
+        }
+        header, footer {
+            background-color: #1e40af;
+        }
+        header h1, footer p {
+            color: white;
+        }
+        nav {
+            background-color: #1e293b;
+        }
+        nav a:hover {
+            color: #93c5fd;
+        }
+        .check-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 320px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        .check-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .check-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .check-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 12px;
+            color: #1e40af;
+        }
+        .check-desc {
+            margin-top: 8px;
+            color: #4b5563;
+            font-size: 0.95rem;
+            min-height: 60px;
+        }
+        .container-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            padding: 20px 0;
+        }
+        @media (max-width: 640px) {
+            .check-card {
+                max-width: 90%;
+            }
+            .check-img {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="p-5 text-center">
+        <h1 class="text-4xl font-bold">댕근 - 건강 체크</h1>
+    </header>
+    <nav class="p-4 text-center text-white">
+        <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
+            <li><a href="index.html" class="hover:text-blue-300">홈</a></li>
+            <li><a href="walk.html" class="hover:text-blue-300">동반 산책</a></li>
+            <li><a href="trade.html" class="hover:text-blue-300">중고 거래</a></li>
+            <li><a href="groupbuy.html" class="hover:text-blue-300">공동 구매</a></li>
+            <li><a href="adopt.html" class="hover:text-blue-300">교배/입양</a></li>
+            <li><a href="grooming.html" class="hover:text-blue-300">미용/병원</a></li>
+            <li><a href="health.html" class="hover:text-blue-300 font-semibold underline">건강 체크</a></li>
+            <li><a href="insurance.html" class="hover:text-blue-300">보험/장례</a></li>
+            <li><a href="card.html" class="hover:text-blue-300">전용 카드</a></li>
+            <li><a href="hotel.html" class="hover:text-blue-300">애견 팬션/호텔</a></li>
+            <li><a href="training.html" class="hover:text-blue-300">애견 훈련소</a></li>
+        </ul>
+    </nav>
+
+    <main class="container mx-auto px-6 py-10 text-center">
+        <h2 class="text-3xl font-semibold mb-6 text-blue-900">댕근 건강 체크 서비스</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+            우리 강아지 건강 상태를 쉽고 빠르게 체크해보세요.
+        </p>
+
+        <div class="container-flex">
+            <div class="check-card">
+                <img src="images/health_checkup.jpg" alt="건강 검진" class="check-img" />
+                <div class="check-title">정기 건강 검진</div>
+                <div class="check-desc">주기적인 검진으로 조기 질병 예방과 관리.</div>
+            </div>
+            <div class="check-card">
+                <img src="images/nutrition_advice.jpg" alt="영양 상담" class="check-img" />
+                <div class="check-title">영양 상담</div>
+                <div class="check-desc">맞춤형 식단과 영양 관리로 건강한 생활 유지.</div>
+            </div>
+            <div class="check-card">
+                <img src="images/exercise_plan.jpg" alt="운동 계획" class="check-img" />
+                <div class="check-title">운동 계획 수립</div>
+                <div class="check-desc">강아지 체형과 나이에 맞춘 운동 프로그램 제공.</div>
+            </div>
+            <div class="check-card">
+                <img src="images/vaccination.jpg" alt="예방 접종" class="check-img" />
+                <div class="check-title">예방 접종 관리</div>
+                <div class="check-desc">필수 예방 접종 일정 안내 및 알림 서비스.</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-5 text-center text-white">
+        <p>© 2025 댕근. All rights reserved.</p>
+    </footer>
+</body>
+</html>
