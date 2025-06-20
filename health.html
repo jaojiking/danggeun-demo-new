@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 건강 체크</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>댕근 - 건강 체크</title>
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
@@ -27,7 +28,6 @@
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 20px;
-            /* max-width: 320px; <-- Removed */
             transition: transform 0.3s ease;
             text-align: center;
         }
@@ -53,15 +53,15 @@
             font-size: 0.95rem;
             min-height: 60px;
         }
-        /* .container-flex and @media (max-width: 640px) styles have been removed as Tailwind handles the grid layout now. */
+        /* .container-flex 및 @media (max-width: 640px) 스타일은 Tailwind 그리드로 대체되어 제거되었습니다. */
 
-        /* Styles for scrollable navigation bar (smooth scrolling on mobile) */
+        /* 스크롤 가능한 네비게이션 바 스타일 (모바일에서 부드러운 스크롤) */
         .nav-scrollable-container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+            display: none; /* Webkit 브라우저 (Chrome, Safari)에서 스크롤바 숨기기 */
         }
         .nav-scrollable-container {
-            -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
-            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
+            scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
         }
     </style>
 </head>
@@ -113,7 +113,7 @@
                 <div class="check-desc">필수 예방 접종 일정 안내 및 알림 서비스.</div>
             </div>
         </div>
-        </main>
+    </main>
 
     <footer class="p-5 text-center text-white">
         <p>© 2025 댕근. All rights reserved.</p>
