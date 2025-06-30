@@ -2,46 +2,71 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>댕근 - 중고 거래</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>댕근 - 중고 거래</title>
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
+        /* 기본 폰트 및 배경색 */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9fafb;
+            background-color: #f9fafb; /* bg-gray-50 */
         }
+        /* 헤더 및 푸터 배경색 (진한 파랑) */
         header, footer {
-            background-color: #1e40af;
+            background-color: #1e40af; /* primary-dark */
         }
         header h1, footer p {
             color: white;
         }
-        nav {
-            background-color: #1e293b;
+        /* 스크롤 가능한 내비게이션 바 (모바일에서 스크롤바 숨김) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none;
         }
-        nav a:hover {
-            color: #93c5fd;
+        .nav-scrollable-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
+        /* 드로어 메뉴 (삼선 메뉴) 배경색 */
+        .drawer-nav {
+            background-color: #1e293b; /* slate-800 */
+        }
+        /* 드로어 아이템 호버 효과 */
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        /* 드로어 트랜지션 */
+        .drawer-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* 섹션 제목 및 설명 스타일 */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2.25rem; /* text-4xl */
             font-weight: 700;
-            color: #1e40af;
-            margin-bottom: 1rem;
+            color: #1e40af; /* text-blue-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
         }
         .section-desc {
-            color: #4b5563;
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            color: #4b5563; /* text-gray-600 */
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 2.5rem; /* mb-10 */
+            max-width: 48rem; /* max-w-3xl (for larger screens) */
+            margin-left: auto;
+            margin-right: auto;
         }
+        /* 카드 스타일 */
         .card {
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 20px;
-            /* max-width: 320px; <-- 삭제 */
-            /* margin: 10px; <-- 삭제 */
             transition: transform 0.3s ease;
             text-align: center;
+            display: flex;
+            flex-direction: column;
         }
         .card:hover {
             transform: translateY(-5px);
@@ -49,85 +74,206 @@
         }
         .card-img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 200px; /* 이미지 높이 고정 */
+            object-fit: cover; /* 이미지가 카드에 꽉 차게 */
             border-radius: 10px;
+            margin-bottom: 15px; /* 이미지와 텍스트 사이 간격 추가 */
         }
         .card-title {
-            margin-top: 15px;
             font-weight: 700;
             font-size: 1.2rem;
             color: #1e40af;
+            margin-bottom: 10px; /* 제목과 설명 사이 간격 추가 */
         }
         .card-desc {
-            margin-top: 10px;
             color: #4b5563;
             font-size: 0.95rem;
-            min-height: 60px;
+            min-height: 60px; /* 설명 텍스트 고정 높이 */
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            flex-grow: 1; /* 남은 공간을 채우도록 설정 */
+            margin-bottom: 15px; /* 설명과 가격 사이 간격 추가 */
         }
-        /* .container-flex <-- 이 전체 스타일 블록은 더 이상 필요 없으므로 삭제했습니다. */
-        /* @media (max-width: 640px) { ... } <-- 이 미디어 쿼리도 더 이상 필요 없으므로 삭제했습니다. */
-
-        /* 스크롤 가능한 내비게이션 바 스타일 (모바일에서 부드러운 스크롤 효과) */
-        .nav-scrollable-container::-webkit-scrollbar {
-            display: none; /* 크롬, 사파리 등 스크롤바 숨기기 */
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ef4444; /* text-red-500 */
+            margin-bottom: 15px; /* 가격과 버튼 사이 간격 추가 */
         }
-        .nav-scrollable-container {
-            -ms-overflow-style: none;  /* IE, 엣지 스크롤바 숨기기 */
-            scrollbar-width: none;  /* 파이어폭스 스크롤바 숨기기 */
+        .card-button {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: block; /* 버튼을 블록 요소로 만들어 너비 100% */
+            width: 100%;
+        }
+        .card-button:hover {
+            background-color: #1e40af; /* blue-800 */
         }
     </style>
 </head>
-<body>
-    <header class="p-5 text-center">
-        <h1 class="text-4xl font-bold">댕근 - 중고 거래</h1>
+<body class="relative min-h-screen">
+    <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
+
+    <header class="p-5 text-center bg-blue-800 relative z-10">
+        <div class="container mx-auto flex items-center justify-between">
+            <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
+                &#9776; </button>
+            <h1 class="text-4xl font-bold text-white flex-grow">댕근 - 중고 거래</h1>
+            <a href="index.html" class="text-white text-2xl px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                🏡
+            </a>
+        </div>
     </header>
-    <nav class="p-4 text-center text-white">
-        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
-            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 펜션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
-        </ul>
+
+    <nav id="side-drawer" class="drawer fixed top-0 left-0 w-64 h-full bg-slate-800 text-white z-50 transform -translate-x-full shadow-lg">
+        <div class="p-4 pt-6">
+            <div class="mb-6 pb-4 border-b border-gray-700">
+                <div id="user-info" class="flex items-center space-x-3 mb-4">
+                    <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
+                    <div>
+                        <h3 id="user-name" class="text-xl font-semibold">로그인해주세요</h3>
+                        <p id="user-email" class="text-gray-400 text-sm">계정 정보를 확인하세요</p>
+                    </div>
+                </div>
+                <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏡 홈</a></li>
+                <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
+                <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300 font-semibold underline">♻️ 중고 거래</a></li>
+                <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
+                <li><a href="adopt.html" class="block py-2 px-4 text-lg hover:text-blue-300">❤️ 교배/입양</a></li>
+                <li><a href="grooming.html" class="block py-2 px-4 text-lg hover:text-blue-300">✂️ 미용/병원</a></li>
+                <li><a href="health.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏥 건강 체크</a></li>
+                <li><a href="insurance.html" class="block py-2 px-4 text-lg hover:text-blue-300">🛡️ 보험/장례</a></li>
+                <li><a href="card.html" class="block py-2 px-4 text-lg hover:text-blue-300">💳 전용 카드</a></li>
+                <li><a href="hotel.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏨 애견 펜션/호텔</a></li>
+                <li><a href="training.html" class="block py-2 px-4 text-lg hover:text-blue-300">🎓 애견 훈련소</a></li>
+            </ul>
+        </div>
     </nav>
+
     <main class="container mx-auto px-6 py-10 text-center">
-        <h2 class="section-title">믿을 수 있는 중고 거래</h2>
+        <h2 class="section-title">우리 강아지를 위한 알뜰 중고 거래</h2>
         <p class="section-desc">
-            애견용품을 직접 만나 거래하세요. 인증된 사용자 간 거래로 신뢰를 보장합니다.
+            댕근 중고 거래에서 사용하지 않는 강아지 용품을 판매하거나, 필요한 용품을 합리적인 가격에 구매할 수 있습니다.<br/>
+            서로 나누고 절약하는 똑똑한 반려 생활을 시작해보세요!
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/used_bed.png" alt="중고 강아지 침대" class="card-img" />
-                <div class="card-title">강아지 침대</div>
-                <div class="card-desc">거의 새것 같은 애견 침대. 소형견용. 서울 강남 직거래 가능.</div>
+                <img src="images/product1.png" alt="강아지 옷" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">강아지 겨울옷 (거의 새것)</div>
+                <div class="card-desc">작년에 샀는데 사이즈가 안 맞아서 판매해요. S사이즈이고 한두 번 입혔어요.</div>
+                <div class="card-price">15,000원</div>
+                <button class="card-button">자세히 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/used_toy.png" alt="강아지 장난감" class="card-img" />
-                <div class="card-title">애견 장난감 세트</div>
-                <div class="card-desc">다양한 장난감 구성. 사용감 적음. 1만원.</div>
+                <img src="images/product2.jpg" alt="이동 가방" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">튼튼한 애견 이동 가방</div>
+                <div class="card-desc">중형견도 편안하게 사용할 수 있는 이동 가방입니다. 여행 시 유용해요.</div>
+                <div class="card-price">30,000원</div>
+                <button class="card-button">자세히 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/used_clothes.jpg" alt="강아지 옷" class="card-img" />
-                <div class="card-title">강아지 옷</div>
-                <div class="card-desc">여름용 의상 3벌 세트. 중형견용. 직거래/택배 가능.</div>
+                <img src="images/product3.png" alt="장난감 세트" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">강아지 장난감 세트 (새 상품 포함)</div>
+                <div class="card-desc">아이가 흥미를 잃어서 판매합니다. 새 장난감 몇 개 포함되어 있어요.</div>
+                <div class="card-price">10,000원</div>
+                <button class="card-button">자세히 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/used_bowl.jpg" alt="밥그릇" class="card-img" />
-                <div class="card-title">스테인리스 밥그릇</div>
-                <div class="card-desc">세척 용이, 거의 사용하지 않음. 택배만 가능.</div>
+                <img src="images/product4.jpg" alt="강아지 침대" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">푹신한 강아지 침대 (L사이즈)</div>
+                <div class="card-desc">대형견도 편안하게 쉴 수 있는 대형 침대입니다. 세탁 완료.</div>
+                <div class="card-price">45,000원</div>
+                <button class="card-button">자세히 보기</button>
+            </div>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="images/product5.jpg" alt="사료 자동 급식기" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">스마트 사료 자동 급식기</div>
+                <div class="card-desc">시간 설정 및 음성 녹음 기능이 있는 스마트 급식기. 여행 필수품!</div>
+                <div class="card-price">60,000원</div>
+                <button class="card-button">자세히 보기</button>
+            </div>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="images/product6.jpg" alt="새로운 상품" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Image+Not+Found';" />
+                <div class="card-title">새로운 상품을 등록해보세요!</div>
+                <div class="card-desc">사용하지 않는 강아지 용품이 있다면 여기서 판매하세요!</div>
+                <div class="card-price">가격 협의</div>
+                <button class="card-button bg-green-500 hover:bg-green-600">상품 등록하기</button>
             </div>
         </div>
-        </main>
-    <footer class="p-5 text-center text-white">
+
+        <section class="mt-12 pt-8 border-t border-gray-200">
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">중고 거래 유의사항</h3>
+            <ul class="text-gray-600 list-disc list-inside text-left max-w-2xl mx-auto space-y-2">
+                <li>거래 전 **상품 상태를 꼼꼼히 확인**하고 판매자와 충분히 소통해주세요.</li>
+                <li>가급적 **직거래를 권장**하며, 택배 거래 시 안전한 포장과 배송 방법을 확인하세요.</li>
+                <li>개인 간 거래이므로 **환불 및 교환은 어렵습니다.** 신중하게 결정해주세요.</li>
+                <li>이상 거래나 사기 의심 시 즉시 댕근 고객센터로 신고해주세요.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="p-5 text-center bg-blue-800 text-white mt-10">
         <p>© 2025 댕근. All rights reserved.</p>
     </footer>
+
+    <script>
+        const drawer = document.getElementById('side-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const profilePic = document.getElementById('profile-pic');
+        const authButton = document.getElementById('auth-button');
+        let isLoggedIn = false; // 로그인 상태 관리 변수 (실제 앱에서는 서버에서 가져와야 함)
+
+        // 드로어 열고 닫기 함수
+        function toggleDrawer() {
+            if (drawer.classList.contains('-translate-x-full')) {
+                // 드로어 열기
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
+            } else {
+                // 드로어 닫기
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0'); // Fade out overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Hide after transition
+            }
+        }
+
+        // 로그인 상태 토글 함수
+        function toggleLogin() {
+            isLoggedIn = !isLoggedIn; // 상태 반전
+
+            if (isLoggedIn) {
+                userName.textContent = '환영해요, 댕근님! 🐶';
+                userEmail.textContent = 'danggeun@example.com';
+                profilePic.src = 'https://via.placeholder.com/60/0000FF/FFFFFF?text=✔️'; // 로그인 시 아이콘 변경 예시
+                authButton.textContent = '로그아웃';
+                authButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                authButton.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                userName.textContent = '로그인해주세요';
+                userEmail.textContent = '계정 정보를 확인하세요';
+                profilePic.src = 'https://via.placeholder.com/60/FFFFFF/000000?text=🐶'; // 로그아웃 시 원래 아이콘
+                authButton.textContent = '로그인';
+                authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
+                authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
+            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
+        }
+    </script>
 </body>
 </html>
