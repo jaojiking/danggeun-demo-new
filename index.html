@@ -43,6 +43,11 @@
         .drawer {
             transition: transform 0.3s ease-in-out;
         }
+        /* 서비스 카드 호버 효과 */
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body class="relative min-h-screen">
@@ -108,19 +113,25 @@
             <h2 class="text-2xl font-bold text-blue-800 mb-4">댕근 주요 서비스</h2>
             <p class="text-gray-700 mb-10">당신과 반려견을 위한 다양한 기능을 지금 만나보세요!</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow p-6 transform transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <h3 class="text-xl font-bold text-blue-700 mb-2">동반 산책</h3>
-                    <p class="text-gray-600">위치 기반으로 강아지 친구들과 함께 걷기</p>
+                <div class="service-card bg-white rounded-lg shadow p-6 transform transition duration-300">
+                    <a href="walk.html" class="block">
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">동반 산책</h3>
+                        <p class="text-gray-600">위치 기반으로 강아지 친구들과 함께 걷기</p>
+                    </a>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6 transform transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <h3 class="text-xl font-bold text-blue-700 mb-2">중고 거래</h3>
-                    <p class="text-gray-600">믿을 수 있는 이웃 간의 애견 용품 거래</p>
+                <div class="service-card bg-white rounded-lg shadow p-6 transform transition duration-300">
+                    <a href="trade.html" class="block">
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">중고 거래</h3>
+                        <p class="text-gray-600">믿을 수 있는 이웃 간의 애견 용품 거래</p>
+                    </a>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6 transform transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <h3 class="text-xl font-bold text-blue-700 mb-2">교배 & 입양</h3>
-                    <p class="text-gray-600">가족을 찾는 반려견과의 만남을 연결</p>
+                <div class="service-card bg-white rounded-lg shadow p-6 transform transition duration-300">
+                    <a href="adopt.html" class="block">
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">교배 & 입양</h3>
+                        <p class="text-gray-600">가족을 찾는 반려견과의 만남을 연결</p>
+                    </a>
                 </div>
                 </div>
         </section>
