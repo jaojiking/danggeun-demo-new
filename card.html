@@ -7,40 +7,57 @@
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
+        /* 기본 폰트 및 배경색 */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9fafb;
+            background-color: #f9fafb; /* bg-gray-50 */
         }
+        /* 헤더 및 푸터 배경색 (진한 파랑) */
         header, footer {
-            background-color: #1e40af;
+            background-color: #1e40af; /* primary-dark */
         }
         header h1, footer p {
             color: white;
         }
-        nav {
-            background-color: #1e293b;
+        /* 스크롤 가능한 내비게이션 바 (모바일에서 스크롤바 숨김) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none;
         }
-        nav a:hover {
-            color: #93c5fd;
+        .nav-scrollable-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-        /* The .container max-width is now handled by Tailwind's container class. */
-        /* .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 24px 20px;
-            text-align: center;
-        } */
+        /* 드로어 메뉴 (삼선 메뉴) 배경색 */
+        .drawer-nav {
+            background-color: #1e293b; /* slate-800 */
+        }
+        /* 드로어 아이템 호버 효과 */
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        /* 드로어 트랜지션 */
+        .drawer-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* 섹션 제목 및 설명 스타일 */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2.25rem; /* text-4xl */
             font-weight: 700;
-            color: #1e40af;
-            margin-bottom: 1rem;
+            color: #1e40af; /* text-blue-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
         }
         .section-desc {
-            color: #4b5563;
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            color: #4b5563; /* text-gray-600 */
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 2.5rem; /* mb-10 */
+            max-width: 48rem; /* max-w-3xl (for larger screens) */
+            margin-left: auto;
+            margin-right: auto;
         }
+        /* 카드 스타일 */
         .card {
             background-color: white;
             border-radius: 12px;
@@ -69,65 +86,172 @@
             margin-top: 10px;
             color: #4b5563;
             font-size: 0.95rem;
-            min-height: 60px;
-        }
-        /* .container-flex and @media (max-width: 640px) styles have been removed. */
-
-        /* Styles for scrollable navigation bar (smooth scrolling on mobile) */
-        .nav-scrollable-container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-        }
-        .nav-scrollable-container {
-            -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
-            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+            min-height: 60px; /* 고정 높이로 다른 카드와 정렬 */
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
         }
     </style>
 </head>
-<body>
-    <header class="p-5 text-center">
-        <h1 class="text-4xl font-bold">댕근 - 전용 카드</h1>
+<body class="relative min-h-screen">
+    <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
+
+    <header class="p-5 text-center bg-blue-800 relative z-10">
+        <div class="container mx-auto flex items-center justify-between">
+            <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
+                &#9776; </button>
+            <h1 class="text-4xl font-bold text-white flex-grow">댕근 - 전용 카드</h1>
+            <a href="index.html" class="text-white text-2xl px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                🏡
+            </a>
+        </div>
     </header>
-    <nav class="p-4 text-center text-white">
-        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
-            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 팬션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
-        </ul>
+
+    <nav id="side-drawer" class="drawer fixed top-0 left-0 w-64 h-full bg-slate-800 text-white z-50 transform -translate-x-full shadow-lg">
+        <div class="p-4 pt-6">
+            <div class="mb-6 pb-4 border-b border-gray-700">
+                <div id="user-info" class="flex items-center space-x-3 mb-4">
+                    <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
+                    <div>
+                        <h3 id="user-name" class="text-xl font-semibold">로그인해주세요</h3>
+                        <p id="user-email" class="text-gray-400 text-sm">계정 정보를 확인하세요</p>
+                    </div>
+                </div>
+                <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏡 홈</a></li>
+                <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
+                <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300">♻️ 중고 거래</a></li>
+                <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
+                <li><a href="adopt.html" class="block py-2 px-4 text-lg hover:text-blue-300">❤️ 교배/입양</a></li>
+                <li><a href="grooming.html" class="block py-2 px-4 text-lg hover:text-blue-300">✂️ 미용/병원</a></li>
+                <li><a href="health.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏥 건강 체크</a></li>
+                <li><a href="insurance.html" class="block py-2 px-4 text-lg hover:text-blue-300">🛡️ 보험/장례</a></li>
+                <li><a href="card.html" class="block py-2 px-4 text-lg hover:text-blue-300 font-semibold underline">💳 전용 카드</a></li>
+                <li><a href="hotel.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏨 애견 펜션/호텔</a></li>
+                <li><a href="training.html" class="block py-2 px-4 text-lg hover:text-blue-300">🎓 애견 훈련소</a></li>
+            </ul>
+        </div>
     </nav>
+
     <main class="container mx-auto px-6 py-10 text-center">
-        <h2 class="section-title">댕근 전용 카드 소개</h2>
+        <h2 class="section-title">댕근 회원만을 위한 특별한 혜택</h2>
         <p class="section-desc">
-            댕근 회원만을 위한 특별한 혜택과 포인트 적립이 가능한 전용 카드를 만나보세요.<br/>
-            강아지와 함께하는 일상에 더 큰 즐거움을 드립니다.
+            댕근 전용 카드는 회원분들께 다양한 **혜택**과 **포인트 적립** 기회를 제공합니다.<br/>
+            우리 강아지와 함께하는 모든 순간에 더욱 풍성한 즐거움을 경험해보세요!
         </p>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/card_benefit.png" alt="카드 혜택" class="card-img" />
-                <div class="card-title">포인트 적립</div>
-                <div class="card-desc">산책, 구매, 병원 이용 시 포인트를 쌓아 다양한 혜택으로 교환 가능</div>
+                <img src="images/card_benefit.png" alt="포인트 적립" class="card-img" />
+                <div class="card-title">강력한 포인트 적립</div>
+                <div class="card-desc">산책, 커뮤니티 활동, 댕근 내 서비스 이용 시마다 포인트를 적립하여 다양한 혜택으로 교환할 수 있습니다.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">포인트 혜택 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/card_discount.png" alt="카드 할인" class="card-img" />
-                <div class="card-title">제휴 할인</div>
-                <div class="card-desc">제휴 애견 미용실, 병원, 용품점에서 특별 할인을 제공합니다.</div>
+                <img src="images/card_discount.png" alt="제휴 할인" class="card-img" />
+                <div class="card-title">다양한 제휴 할인</div>
+                <div class="card-desc">제휴된 애견 미용실, 동물 병원, 용품점 등에서 특별 할인을 제공받아 부담 없이 이용하세요.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">제휴사 안내</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
                 <img src="images/card_exclusive.png" alt="전용 이벤트" class="card-img" />
-                <div class="card-title">전용 이벤트</div>
-                <div class="card-desc">회원 전용 다양한 이벤트와 쿠폰 혜택을 누리세요.</div>
+                <div class="card-title">회원 전용 이벤트</div>
+                <div class="card-desc">카드 회원만을 위한 특별한 이벤트 참여 기회와 한정판 쿠폰 혜택을 누리세요.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">이벤트 참여하기</button>
             </div>
         </div>
+
+        <section class="mt-12">
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">댕근 전용 카드 신청</h3>
+            <p class="text-gray-600 mb-6">지금 바로 댕근 전용 카드를 신청하고 특별한 혜택을 경험해보세요!</p>
+            <form class="bg-white rounded-lg shadow p-6 space-y-4 max-w-xl mx-auto">
+                <div>
+                    <label for="card-type" class="block font-medium text-gray-700 mb-1">카드 종류 선택</label>
+                    <select id="card-type" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">카드 종류를 선택해주세요</option>
+                        <option value="basic">댕근 베이직 카드</option>
+                        <option value="premium">댕근 프리미엄 카드</option>
+                        <option value="unlimited">댕근 VIP 카드</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="applicant-name" class="block font-medium text-gray-700 mb-1">신청인 이름</label>
+                    <input type="text" id="applicant-name" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="applicant-phone" class="block font-medium text-gray-700 mb-1">연락처</label>
+                    <input type="tel" id="applicant-phone" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="applicant-email" class="block font-medium text-gray-700 mb-1">이메일</label>
+                    <input type="email" id="applicant-email" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="agree-terms" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required />
+                    <label for="agree-terms" class="ml-2 block text-gray-900 text-sm">이용 약관에 동의합니다.</label>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full font-semibold">
+                    카드 신청하기
+                </button>
+            </form>
+        </section>
     </main>
-    <footer class="p-5 text-center text-white">
+
+    <footer class="p-5 text-center bg-blue-800 text-white mt-10">
         <p>© 2025 댕근. All rights reserved.</p>
     </footer>
+
+    <script>
+        const drawer = document.getElementById('side-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const profilePic = document.getElementById('profile-pic');
+        const authButton = document.getElementById('auth-button');
+        let isLoggedIn = false; // 로그인 상태 관리 변수 (실제 앱에서는 서버에서 가져와야 함)
+
+        // 드로어 열고 닫기 함수
+        function toggleDrawer() {
+            if (drawer.classList.contains('-translate-x-full')) {
+                // 드로어 열기
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
+            } else {
+                // 드로어 닫기
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0'); // Fade out overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Hide after transition
+            }
+        }
+
+        // 로그인 상태 토글 함수
+        function toggleLogin() {
+            isLoggedIn = !isLoggedIn; // 상태 반전
+
+            if (isLoggedIn) {
+                userName.textContent = '환영해요, 댕근님! 🐶';
+                userEmail.textContent = 'danggeun@example.com';
+                profilePic.src = 'https://via.placeholder.com/60/0000FF/FFFFFF?text=✔️'; // 로그인 시 아이콘 변경 예시
+                authButton.textContent = '로그아웃';
+                authButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                authButton.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                userName.textContent = '로그인해주세요';
+                userEmail.textContent = '계정 정보를 확인하세요';
+                profilePic.src = 'https://via.placeholder.com/60/FFFFFF/000000?text=🐶'; // 로그아웃 시 원래 아이콘
+                authButton.textContent = '로그인';
+                authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
+                authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
+            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
+        }
+    </script>
 </body>
 </html>

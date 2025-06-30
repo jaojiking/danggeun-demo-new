@@ -7,34 +7,57 @@
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <style>
+        /* 기본 폰트 및 배경색 */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9fafb;
+            background-color: #f9fafb; /* bg-gray-50 */
         }
+        /* 헤더 및 푸터 배경색 (진한 파랑) */
         header, footer {
-            background-color: #1e40af;
+            background-color: #1e40af; /* primary-dark */
         }
         header h1, footer p {
             color: white;
         }
-        nav {
-            background-color: #1e293b;
+        /* 스크롤 가능한 내비게이션 바 (모바일에서 스크롤바 숨김) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none;
         }
-        nav a:hover {
-            color: #93c5fd;
+        .nav-scrollable-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-        /* Custom CSS styles now primarily for appearance, not layout */
+        /* 드로어 메뉴 (삼선 메뉴) 배경색 */
+        .drawer-nav {
+            background-color: #1e293b; /* slate-800 */
+        }
+        /* 드로어 아이템 호버 효과 */
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        /* 드로어 트랜지션 */
+        .drawer-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* 섹션 제목 및 설명 스타일 */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2.25rem; /* text-4xl */
             font-weight: 700;
-            color: #1e40af;
-            margin-bottom: 1rem;
+            color: #1e40af; /* text-blue-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
         }
         .section-desc {
-            color: #4b5563;
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            color: #4b5563; /* text-gray-600 */
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 2.5rem; /* mb-10 */
+            max-width: 48rem; /* max-w-3xl (for larger screens) */
+            margin-left: auto;
+            margin-right: auto;
         }
+        /* 카드 스타일 */
         .card {
             background-color: white;
             border-radius: 12px;
@@ -63,70 +86,174 @@
             margin-top: 10px;
             color: #4b5563;
             font-size: 0.95rem;
-            min-height: 60px;
-        }
-        /* .container-flex and @media (max-width: 640px) styles have been removed. */
-
-        /* Styles for scrollable navigation bar (smooth scrolling on mobile) */
-        .nav-scrollable-container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-        }
-        .nav-scrollable-container {
-            -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
-            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+            min-height: 60px; /* 고정 높이로 다른 카드와 정렬 */
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
         }
     </style>
 </head>
-<body>
-    <header class="p-5 text-center">
-        <h1 class="text-4xl font-bold">댕근 - 보험/장례</h1>
+<body class="relative min-h-screen">
+    <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
+
+    <header class="p-5 text-center bg-blue-800 relative z-10">
+        <div class="container mx-auto flex items-center justify-between">
+            <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
+                &#9776; </button>
+            <h1 class="text-4xl font-bold text-white flex-grow">댕근 - 보험/장례</h1>
+            <a href="index.html" class="text-white text-2xl px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                🏡
+            </a>
+        </div>
     </header>
-    <nav class="p-4 text-center text-white">
-        <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
-            <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
-            <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
-            <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
-            <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
-            <li><a href="adopt.html" class="hover:text-blue-300 whitespace-nowrap">교배/입양</a></li>
-            <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
-            <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
-            <li><a href="insurance.html" class="hover:text-blue-300 font-semibold underline whitespace-nowrap">보험/장례</a></li>
-            <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
-            <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 팬션/호텔</a></li>
-            <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
-        </ul>
+
+    <nav id="side-drawer" class="drawer fixed top-0 left-0 w-64 h-full bg-slate-800 text-white z-50 transform -translate-x-full shadow-lg">
+        <div class="p-4 pt-6">
+            <div class="mb-6 pb-4 border-b border-gray-700">
+                <div id="user-info" class="flex items-center space-x-3 mb-4">
+                    <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
+                    <div>
+                        <h3 id="user-name" class="text-xl font-semibold">로그인해주세요</h3>
+                        <p id="user-email" class="text-gray-400 text-sm">계정 정보를 확인하세요</p>
+                    </div>
+                </div>
+                <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏡 홈</a></li>
+                <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
+                <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300">♻️ 중고 거래</a></li>
+                <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
+                <li><a href="adopt.html" class="block py-2 px-4 text-lg hover:text-blue-300">❤️ 교배/입양</a></li>
+                <li><a href="grooming.html" class="block py-2 px-4 text-lg hover:text-blue-300">✂️ 미용/병원</a></li>
+                <li><a href="health.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏥 건강 체크</a></li>
+                <li><a href="insurance.html" class="block py-2 px-4 text-lg hover:text-blue-300 font-semibold underline">🛡️ 보험/장례</a></li>
+                <li><a href="card.html" class="block py-2 px-4 text-lg hover:text-blue-300">💳 전용 카드</a></li>
+                <li><a href="hotel.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏨 애견 펜션/호텔</a></li>
+                <li><a href="training.html" class="block py-2 px-4 text-lg hover:text-blue-300">🎓 애견 훈련소</a></li>
+            </ul>
+        </div>
     </nav>
+
     <main class="container mx-auto px-6 py-10 text-center">
-        <h2 class="section-title">강아지 보험 및 장례 서비스</h2>
+        <h2 class="section-title">사랑하는 우리 아이를 위한 든든한 준비</h2>
         <p class="section-desc">
-            사랑하는 강아지를 위한 최적의 보험과 장례 서비스를 한 곳에서 만나보세요.<br/>
-            갑작스러운 사고부터 마지막 순간까지 댕근이 함께 합니다.
+            댕근에서 제공하는 최적의 **보험**과 **장례** 서비스로 사랑하는 강아지의 삶을 처음부터 끝까지 함께하세요.
+            갑작스러운 사고부터 마지막 순간까지 댕근이 곁을 지킵니다.
         </p>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/insurance_plan.jpg" alt="강아지 보험" class="card-img" />
+                <img src="images/insurance_plan.jpg" alt="맞춤형 강아지 보험" class="card-img" />
                 <div class="card-title">맞춤형 강아지 보험</div>
-                <div class="card-desc">다양한 보장 옵션으로 우리 강아지에게 딱 맞는 보험을 선택하세요.</div>
+                <div class="card-desc">다양한 보장 옵션과 합리적인 가격으로 우리 강아지에게 딱 맞는 보험을 선택하세요.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">보험 플랜 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/claims_service.jpg" alt="보험 청구" class="card-img" />
+                <img src="images/claims_service.jpg" alt="간편한 보험 청구" class="card-img" />
                 <div class="card-title">간편한 보험 청구</div>
-                <div class="card-desc">스마트한 모바일 청구 시스템으로 빠르고 간편하게 보상받으세요.</div>
+                <div class="card-desc">복잡한 절차 없이, 스마트한 모바일 청구 시스템으로 빠르고 간편하게 보상받으세요.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">청구 방법 안내</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/pet_funeral.jpg" alt="애견 장례" class="card-img" />
+                <img src="images/pet_funeral.jpg" alt="애견 장례 서비스" class="card-img" />
                 <div class="card-title">애견 장례 서비스</div>
-                <div class="card-desc">존중과 애정을 담아 우리 아이의 마지막을 아름답게 기억하세요.</div>
+                <div class="card-desc">존중과 애정을 담아 우리 아이의 마지막을 아름답게 기억할 수 있도록 섬세하게 돕습니다.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">장례 서비스 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/memorial_goods.png" alt="추모 용품" class="card-img" />
+                <img src="images/memorial_goods.png" alt="추모 및 기념 용품" class="card-img" />
                 <div class="card-title">추모 및 기념 용품</div>
-                <div class="card-desc">특별한 추억을 위한 다양한 추모 상품과 기념품을 제공합니다.</div>
+                <div class="card-desc">특별한 추억을 영원히 간직할 수 있는 다양한 추모 상품과 기념품을 제공합니다.</div>
+                <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상품 둘러보기</button>
             </div>
         </div>
+
+        <section class="mt-12">
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">보험/장례 상담 신청</h3>
+            <p class="text-gray-600 mb-6">궁금한 점이 있으시거나 상담이 필요하시면 문의를 남겨주세요.</p>
+            <form class="bg-white rounded-lg shadow p-6 space-y-4 max-w-xl mx-auto">
+                <div>
+                    <label for="consult-type" class="block font-medium text-gray-700 mb-1">상담 유형</label>
+                    <select id="consult-type" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">선택하세요</option>
+                        <option value="insurance">보험 상담</option>
+                        <option value="funeral">장례 서비스 상담</option>
+                        <option value="other">기타 문의</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="contact-name" class="block font-medium text-gray-700 mb-1">이름</label>
+                    <input type="text" id="contact-name" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="contact-phone" class="block font-medium text-gray-700 mb-1">연락처</label>
+                    <input type="tel" id="contact-phone" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="contact-message" class="block font-medium text-gray-700 mb-1">문의 내용</label>
+                    <textarea id="contact-message" class="w-full border rounded px-4 py-2 resize-y focus:ring-blue-500 focus:border-blue-500" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full font-semibold">
+                    상담 신청
+                </button>
+            </form>
+        </section>
     </main>
-    <footer class="p-5 text-center text-white">
+
+    <footer class="p-5 text-center bg-blue-800 text-white mt-10">
         <p>© 2025 댕근. All rights reserved.</p>
     </footer>
+
+    <script>
+        const drawer = document.getElementById('side-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const profilePic = document.getElementById('profile-pic');
+        const authButton = document.getElementById('auth-button');
+        let isLoggedIn = false; // 로그인 상태 관리 변수 (실제 앱에서는 서버에서 가져와야 함)
+
+        // 드로어 열고 닫기 함수
+        function toggleDrawer() {
+            if (drawer.classList.contains('-translate-x-full')) {
+                // 드로어 열기
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
+            } else {
+                // 드rower 닫기
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0'); // Fade out overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Hide after transition
+            }
+        }
+
+        // 로그인 상태 토글 함수
+        function toggleLogin() {
+            isLoggedIn = !isLoggedIn; // 상태 반전
+
+            if (isLoggedIn) {
+                userName.textContent = '환영해요, 댕근님! 🐶';
+                userEmail.textContent = 'danggeun@example.com';
+                profilePic.src = 'https://via.placeholder.com/60/0000FF/FFFFFF?text=✔️'; // 로그인 시 아이콘 변경 예시
+                authButton.textContent = '로그아웃';
+                authButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                authButton.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                userName.textContent = '로그인해주세요';
+                userEmail.textContent = '계정 정보를 확인하세요';
+                profilePic.src = 'https://via.placeholder.com/60/FFFFFF/000000?text=🐶'; // 로그아웃 시 원래 아이콘
+                authButton.textContent = '로그인';
+                authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
+                authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
+            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
+        }
+    </script>
 </body>
 </html>

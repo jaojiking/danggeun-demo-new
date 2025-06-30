@@ -1,179 +1,274 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>댕근 - 교배/입양</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9fafb;
-    }
-    header, footer {
-      background-color: #1e40af;
-    }
-    nav {
-      background-color: #1e293b;
-    }
-    nav a:hover {
-      color: #93c5fd;
-    }
-    .card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-    }
-    .card-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .card-title {
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #1e40af;
-    }
-    .card-desc {
-      font-size: 0.95rem;
-      color: #4b5563;
-      margin-top: 8px;
-      min-height: 60px;
-    }
-    .card-buttons {
-      margin-top: 10px;
-    }
-    .card-buttons button {
-      margin: 0 5px;
-    }
-    /* 스크롤 가능한 내비게이션 바 스타일 (모바일에서 부드러운 스크롤 효과) */
-    .nav-scrollable-container::-webkit-scrollbar {
-      display: none; /* 크롬, 사파리 등 스크롤바 숨기기 */
-    }
-    .nav-scrollable-container {
-      -ms-overflow-style: none;  /* IE, 엣지 스크롤바 숨기기 */
-      scrollbar-width: none;  /* 파이어폭스 스크롤바 숨기기 */
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>댕근 - 교배/입양</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        /* 기본 폰트 및 배경색 */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+        }
+        /* 헤더 및 푸터 배경색 (진한 파랑) */
+        header, footer {
+            background-color: #1e40af; /* primary-dark */
+        }
+        header h1, footer p {
+            color: white;
+        }
+        /* 스크롤 가능한 내비게이션 바 (모바일에서 스크롤바 숨김) */
+        .nav-scrollable-container::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-scrollable-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* 드로어 메뉴 (삼선 메뉴) 배경색 */
+        .drawer-nav {
+            background-color: #1e293b; /* slate-800 */
+        }
+        /* 드로어 아이템 호버 효과 */
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        /* 드로어 트랜지션 */
+        .drawer-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* 카드 스타일 */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* 호버 시 그림자 강화 */
+        }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #1e40af;
+        }
+        .card-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+            margin-top: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center; /* 텍스트 세로 중앙 정렬 */
+            justify-content: center; /* 텍스트 가로 중앙 정렬 */
+        }
+        .card-buttons {
+            margin-top: 10px;
+        }
+        .card-buttons button {
+            margin: 0 5px;
+        }
+    </style>
 </head>
-<body>
-  <header class="p-5 text-center">
-    <h1 class="text-4xl font-bold text-white">댕근 - 교배/입양</h1>
-  </header>
+<body class="relative min-h-screen">
+    <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
 
-  <nav class="p-4 text-center text-white">
-    <ul class="flex flex-nowrap overflow-x-auto justify-center gap-6 text-lg font-medium py-2 nav-scrollable-container">
-      <li><a href="index.html" class="hover:text-blue-300 whitespace-nowrap">홈</a></li>
-      <li><a href="walk.html" class="hover:text-blue-300 whitespace-nowrap">동반 산책</a></li>
-      <li><a href="trade.html" class="hover:text-blue-300 whitespace-nowrap">중고 거래</a></li>
-      <li><a href="groupbuy.html" class="hover:text-blue-300 whitespace-nowrap">공동 구매</a></li>
-      <li><a href="adopt.html" class="text-blue-300 underline whitespace-nowrap">교배/입양</a></li>
-      <li><a href="grooming.html" class="hover:text-blue-300 whitespace-nowrap">미용/병원</a></li>
-      <li><a href="health.html" class="hover:text-blue-300 whitespace-nowrap">건강 체크</a></li>
-      <li><a href="insurance.html" class="hover:text-blue-300 whitespace-nowrap">보험/장례</a></li>
-      <li><a href="card.html" class="hover:text-blue-300 whitespace-nowrap">전용 카드</a></li>
-      <li><a href="hotel.html" class="hover:text-blue-300 whitespace-nowrap">애견 펜션/호텔</a></li>
-      <li><a href="training.html" class="hover:text-blue-300 whitespace-nowrap">애견 훈련소</a></li>
-    </ul>
-  </nav>
+    <header class="p-5 text-center bg-blue-800 relative z-10">
+        <div class="container mx-auto flex items-center justify-between">
+            <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
+                &#9776; </button>
+            <h1 class="text-4xl font-bold text-white flex-grow">댕근 - 교배/입양</h1>
+            <a href="index.html" class="text-white text-2xl px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                🏡
+            </a>
+        </div>
+    </header>
 
-  <main class="container mx-auto px-6 py-10">
-    <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">입양/교배 강아지 목록</h2>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog6.jpg" alt="강아지" class="card-img" />
-        <div class="card-title">시츄 ♀ / 1살</div>
-        <div class="card-desc">아기 같은 성격의 시츄. 예방접종 완료. 가족을 찾고 있어요.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
-        </div>
-      </div>
+    <nav id="side-drawer" class="drawer fixed top-0 left-0 w-64 h-full bg-slate-800 text-white z-50 transform -translate-x-full shadow-lg">
+        <div class="p-4 pt-6">
+            <div class="mb-6 pb-4 border-b border-gray-700">
+                <div id="user-info" class="flex items-center space-x-3 mb-4">
+                    <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
+                    <div>
+                        <h3 id="user-name" class="text-xl font-semibold">로그인해주세요</h3>
+                        <p id="user-email" class="text-gray-400 text-sm">계정 정보를 확인하세요</p>
+                    </div>
+                </div>
+                <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
+            </div>
 
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog4.png" alt="강아지" class="card-img" />
-        <div class="card-title">푸들 ♂ / 2살</div>
-        <div class="card-desc">활발하고 똑똑한 성격. 중소형견과 궁합 좋아요.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
+            <ul>
+                <li><a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏡 홈</a></li>
+                <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
+                <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300">♻️ 중고 거래</a></li>
+                <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
+                <li><a href="adopt.html" class="block py-2 px-4 text-lg hover:text-blue-300 font-semibold underline">❤️ 교배/입양</a></li>
+                <li><a href="grooming.html" class="block py-2 px-4 text-lg hover:text-blue-300">✂️ 미용/병원</a></li>
+                <li><a href="health.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏥 건강 체크</a></li>
+                <li><a href="insurance.html" class="block py-2 px-4 text-lg hover:text-blue-300">🛡️ 보험/장례</a></li>
+                <li><a href="card.html" class="block py-2 px-4 text-lg hover:text-blue-300">💳 전용 카드</a></li>
+                <li><a href="hotel.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏨 애견 펜션/호텔</a></li>
+                <li><a href="training.html" class="block py-2 px-4 text-lg hover:text-blue-300">🎓 애견 훈련소</a></li>
+            </ul>
         </div>
-      </div>
+    </nav>
 
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog3.jpg" alt="강아지" class="card-img" />
-        <div class="card-title">비숑 ♀ / 3살</div>
-        <div class="card-desc">털이 복슬복슬하고 순한 성격. 교배 경험 있음.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
-        </div>
-      </div>
+    <main class="container mx-auto px-6 py-10">
+        <h2 class="text-3xl font-bold text-blue-900 mb-6 text-center">반려견의 새로운 가족을 찾거나, 소중한 만남을 연결하세요!</h2>
+        <p class="text-gray-600 mb-8 text-center">
+            사랑스러운 강아지들의 교배 및 입양 정보를 확인하고, 따뜻한 인연을 만들어보세요.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="images/dog6.jpg" alt="시츄" class="card-img" />
+                <div class="card-title">시츄 ♀ / 1살 (입양)</div>
+                <div class="card-desc">아기 같은 성격의 시츄. 예방접종 완료. 가족을 찾고 있어요.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">입양 문의</button>
+                </div>
+            </div>
 
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog7.jpg" alt="강아지" class="card-img" />
-        <div class="card-title">웰시코기 ♂ / 4살</div>
-        <div class="card-desc">활발하고 애교 많은 친구예요. 입양 문의 주세요.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
-        </div>
-      </div>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="images/dog4.png" alt="푸들" class="card-img" />
+                <div class="card-title">푸들 ♂ / 2살 (교배)</div>
+                <div class="card-desc">활발하고 똑똑한 성격. 중소형견과 궁합 좋아요.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">교배 문의</button>
+                </div>
+            </div>
 
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog8.jpg" alt="강아지" class="card-img" />
-        <div class="card-title">스피츠 ♀ / 3살</div>
-        <div class="card-desc">사람을 좋아하고 말 잘 듣는 친구입니다. 입양 희망.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
-        </div>
-      </div>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="images/dog3.jpg" alt="비숑" class="card-img" />
+                <div class="card-title">비숑 ♀ / 3살 (교배/입양)</div>
+                <div class="card-desc">털이 복슬복슬하고 순한 성격. 교배 경험 있음. 새로운 가족도 환영해요.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">연락하기</button>
+                </div>
+            </div>
 
-      <div class="card w-full max-w-sm mx-auto">
-        <img src="images/dog9.jpeg" alt="강아지" class="card-img" />
-        <div class="card-title">말티즈 ♂ / 5살</div>
-        <div class="card-desc">조용하고 순한 성격. 함께 산책 좋아하는 스타일입니다.</div>
-        <div class="card-buttons">
-          <button class="px-3 py-1 bg-blue-600 text-white rounded">상세보기</button>
-          <button class="px-3 py-1 bg-green-600 text-white rounded">연락하기</button>
-        </div>
-      </div>
-    </div>
-    <section class="mt-12">
-      <h3 class="text-xl font-bold text-blue-700 mb-4 text-center">입양 신청</h3>
-      <form class="bg-white rounded-lg shadow p-6 space-y-4 max-w-xl mx-auto">
-        <div>
-          <label for="name" class="block font-medium text-gray-700">이름</label>
-          <input type="text" id="name" class="w-full border rounded px-4 py-2" required />
-        </div>
-        <div>
-          <label for="phone" class="block font-medium text-gray-700">연락처</label>
-          <input type="tel" id="phone" class="w-full border rounded px-4 py-2" required />
-        </div>
-        <div>
-          <label for="message" class="block font-medium text-gray-700">간단한 소개</label>
-          <textarea id="message" class="w-full border rounded px-4 py-2" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition w-full">
-          신청하기
-        </button>
-      </form>
-    </section>
-  </main>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="https://via.placeholder.com/400x200/D1D5DB/4B5563?text=웰시코기" alt="웰시코기" class="card-img" />
+                <div class="card-title">웰시코기 ♂ / 4살 (입양)</div>
+                <div class="card-desc">활발하고 애교 많은 친구예요. 입양 문의 주세요.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">입양 문의</button>
+                </div>
+            </div>
 
-  <footer class="p-5 text-center text-white mt-10">
-    <p>© 2025 댕근. All rights reserved.</p>
-  </footer>
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="https://via.placeholder.com/400x200/D1D5DB/4B5563?text=스피츠" alt="스피츠" class="card-img" />
+                <div class="card-title">스피츠 ♀ / 3살 (입양)</div>
+                <div class="card-desc">사람을 좋아하고 말 잘 듣는 친구입니다. 입양 희망.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">입양 문의</button>
+                </div>
+            </div>
+
+            <div class="card w-full max-w-sm mx-auto">
+                <img src="https://via.placeholder.com/400x200/D1D5DB/4B5563?text=말티즈" alt="말티즈" class="card-img" />
+                <div class="card-title">말티즈 ♂ / 5살 (교배)</div>
+                <div class="card-desc">조용하고 순한 성격. 함께 산책 좋아하는 스타일입니다.</div>
+                <div class="card-buttons">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상세보기</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">교배 문의</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-12">
+            <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center">입양/교배 문의 남기기</h3>
+            <form class="bg-white rounded-lg shadow p-6 space-y-4 max-w-xl mx-auto">
+                <div>
+                    <label for="name" class="block font-medium text-gray-700 mb-1">이름</label>
+                    <input type="text" id="name" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="phone" class="block font-medium text-gray-700 mb-1">연락처</label>
+                    <input type="tel" id="phone" class="w-full border rounded px-4 py-2 focus:ring-blue-500 focus:border-blue-500" required />
+                </div>
+                <div>
+                    <label for="message" class="block font-medium text-gray-700 mb-1">간단한 소개 및 문의 내용</label>
+                    <textarea id="message" class="w-full border rounded px-4 py-2 resize-y focus:ring-blue-500 focus:border-blue-500" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full font-semibold">
+                    문의 신청하기
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="p-5 text-center bg-blue-800 text-white mt-10">
+        <p>© 2025 댕근. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const drawer = document.getElementById('side-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const profilePic = document.getElementById('profile-pic');
+        const authButton = document.getElementById('auth-button');
+        let isLoggedIn = false; // 로그인 상태 관리 변수 (실제 앱에서는 서버에서 가져와야 함)
+
+        // 드로어 열고 닫기 함수
+        function toggleDrawer() {
+            if (drawer.classList.contains('-translate-x-full')) {
+                // 드로어 열기
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
+            } else {
+                // 드로어 닫기
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0'); // Fade out overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Hide after transition
+            }
+        }
+
+        // 로그인 상태 토글 함수
+        function toggleLogin() {
+            isLoggedIn = !isLoggedIn; // 상태 반전
+
+            if (isLoggedIn) {
+                userName.textContent = '환영해요, 댕근님! 🐶';
+                userEmail.textContent = 'danggeun@example.com';
+                profilePic.src = 'https://via.placeholder.com/60/0000FF/FFFFFF?text=✔️'; // 로그인 시 아이콘 변경 예시
+                authButton.textContent = '로그아웃';
+                authButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                authButton.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                userName.textContent = '로그인해주세요';
+                userEmail.textContent = '계정 정보를 확인하세요';
+                profilePic.src = 'https://via.placeholder.com/60/FFFFFF/000000?text=🐶'; // 로그아웃 시 원래 아이콘
+                authButton.textContent = '로그인';
+                authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
+                authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
+            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
+        }
+    </script>
 </body>
 </html>
