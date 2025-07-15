@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>댕근 - 동반 산책</title>
+    <title>댕근 - 산책 시작</title>
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,19 +17,19 @@
         header, footer {
             background-color: #1e40af; /* primary-dark */
         }
-        /* 아이콘 조합을 위한 스타일 (index.html과 동일하게 유지) */
+        /* 아이콘 스타일 (index.html과 통일) */
         .cute-bone-icon {
-            font-size: 38px; /* 더 크게! */
-            color: #ffe0b2; /* 연한 노란색 (귀여운 뼈다귀 색상) */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 약간의 그림자 추가 */
-            transform: rotate(-10deg); /* 살짝 기울여서 귀여움 강조 */
-            display: inline-block; /* transform 적용을 위해 */
-            transition: transform 0.2s ease-in-out; /* 호버 효과를 위한 트랜지션 */
+            font-size: 38px;
+            color: #ffe0b2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            transform: rotate(-10deg);
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
         }
         .cute-bone-icon:hover {
-            transform: rotate(10deg) scale(1.1); /* 호버 시 반대 방향으로 기울고 커지기 */
+            transform: rotate(10deg) scale(1.1);
         }
-        /* 드로어 관련 스타일 (index.html과 동일하게 유지) */
+        /* 드로어 관련 스타일 (index.html과 통일) */
         .drawer-overlay {
             transition: opacity 0.3s ease-in-out;
         }
@@ -37,19 +37,10 @@
             transition: transform 0.3s ease-in-out;
         }
         .drawer-nav {
-            background-color: #1e293b; /* slate-800 */
+            background-color: #1e293b;
         }
         .drawer-nav a:hover {
             background-color: rgba(255, 255, 255, 0.1);
-        }
-        /* 서비스 카드 호버 효과 */
-        .service-card {
-            cursor: pointer; /* 클릭 가능함을 시각적으로 나타냄 */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         }
         /* 위로 가기 버튼 스타일 */
         #scrollToTopBtn {
@@ -57,7 +48,7 @@
             bottom: 20px;
             right: 20px;
             background-color: #1e40af; /* primary-dark */
-            color: white; /* 화살표 색상을 흰색으로 명확히 지정 */
+            color: white; /* 화살표 색상 */
             border: none;
             border-radius: 50%;
             width: 50px;
@@ -100,8 +91,8 @@
                 <div id="user-info" class="flex items-center space-x-3 mb-4">
                     <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
                     <div>
-                        <h3 id="user-name" class="text-xl font-semibold">로그인해주세요</h3>
-                        <p id="user-email" class="text-gray-400 text-sm">계정 정보를 확인하세요</p>
+                        <h3 class="text-xl font-semibold" id="user-name">로그인해주세요</h3>
+                        <p class="text-gray-400 text-sm" id="user-email">계정 정보를 확인하세요</p>
                     </div>
                 </div>
                 <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
@@ -110,7 +101,7 @@
             <ul>
                 <li>
                     <a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300 flex items-center">
-                        <i class="fas fa-bone mr-3" style="font-size: 24px; color: #ffe0b2;"></i> 
+                        <i class="fas fa-bone cute-bone-icon mr-3" style="font-size: 24px; transform: rotate(0deg); text-shadow: none;"></i> 
                         <span class="text-white">홈</span>
                     </a>
                 </li>
@@ -130,33 +121,47 @@
 
     <main class="py-6">
         <section class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-blue-800 mb-6">🐾 동반 산책</h2>
+            <h2 class="text-3xl font-bold text-blue-800 mb-6">산책을 시작해 볼까요? 🚶‍♀️🐕</h2>
             <p class="text-gray-700 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-                반려견과 함께하는 특별한 산책 경험을 댕근에서 시작해 보세요. <br class="hidden md:inline">
-                위치 기반으로 주변의 반려인과 만날 수 있고, 산책 거리에 따라 포인트가 자동으로 적립됩니다.
-                새로운 친구를 사귀고, 건강도 챙기며, 즐거움도 두 배로 늘려보세요!
+                현재 위치를 기반으로 산책 경로를 기록하고, 걸음 수에 따라 포인트를 적립해 드려요.<br>
+                반려견과 함께 즐거운 시간을 보내고 건강도 챙기세요!
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                <a href="location_meet_details.html" class="service-card bg-white rounded-lg shadow-md p-6 transform transition duration-300 block">
-                    <i class="fas fa-map-marked-alt text-5xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">위치 기반 만남</h3>
-                    <p class="text-gray-600">주변의 반려인 친구들을 지도에서 확인하고 함께 산책해요.</p>
-                </a>
-                <div class="service-card bg-white rounded-lg shadow-md p-6 transform transition duration-300">
-                    <i class="fas fa-coins text-5xl text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">걸음 수 적립</h3>
-                    <p class="text-gray-600">산책한 만큼 포인트를 적립받아 다양한 혜택으로 교환하세요.</p>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-md mx-auto mb-10">
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">현재 위치:</p>
+                    <div class="flex items-center justify-center text-xl font-semibold text-gray-800">
+                        <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                        <span id="current-location">위치 정보를 불러오는 중...</span>
+                    </div>
                 </div>
-                <div class="service-card bg-white rounded-lg shadow-md p-6 transform transition duration-300">
-                    <i class="fas fa-dog-walking text-5xl text-green-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">건강 & 즐거움</h3>
-                    <p class="text-gray-600">반려견과 함께 건강도 챙기고, 새로운 추억을 만드세요!</p>
+
+                <div class="mb-8">
+                    <p class="text-gray-600 text-lg mb-2">오늘 산책 거리:</p>
+                    <div class="flex items-center justify-center text-2xl font-bold text-blue-600">
+                        <i class="fas fa-shoe-prints mr-2"></i>
+                        <span id="walk-distance">0.00 km</span>
+                    </div>
                 </div>
+
+                <div class="mb-8">
+                    <p class="text-gray-600 text-lg mb-2">적립 포인트:</p>
+                    <div class="flex items-center justify-center text-2xl font-bold text-yellow-500">
+                        <i class="fas fa-coins mr-2"></i>
+                        <span id="earned-points">0 P</span>
+                    </div>
+                </div>
+
+                <button id="start-walk-btn" class="w-full bg-green-500 text-white text-xl font-bold py-4 rounded-lg hover:bg-green-600 transition shadow-md">
+                    <i class="fas fa-play mr-2"></i> 산책 시작
+                </button>
+                <button id="stop-walk-btn" class="w-full bg-red-500 text-white text-xl font-bold py-4 rounded-lg hover:bg-red-600 transition shadow-md mt-4 hidden">
+                    <i class="fas fa-stop mr-2"></i> 산책 종료
+                </button>
             </div>
 
-            <a href="start_walk.html" class="inline-block bg-blue-600 text-white text-xl font-bold py-4 px-10 rounded-lg hover:bg-blue-700 transition shadow-md">
-                <i class="fas fa-play-circle mr-2"></i> 산책 시작하기
+            <a href="walk.html" class="inline-block bg-gray-300 text-gray-800 text-lg font-bold py-3 px-8 rounded-lg hover:bg-gray-400 transition shadow-md">
+                <i class="fas fa-arrow-left mr-2"></i> 동반 산책 홈으로
             </a>
         </section>
     </main>
@@ -214,9 +219,65 @@
                 authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
                 authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
             }
-            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
-            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
         }
+
+        // 산책 시작/종료 기능 (가상의 기능)
+        const startWalkBtn = document.getElementById('start-walk-btn');
+        const stopWalkBtn = document.getElementById('stop-walk-btn');
+        const currentLocationSpan = document.getElementById('current-location');
+        const walkDistanceSpan = document.getElementById('walk-distance');
+        const earnedPointsSpan = document.getElementById('earned-points');
+
+        let isWalking = false;
+        let walkInterval;
+        let distance = 0;
+        let points = 0;
+
+        // 위치 정보 가져오기 (가상)
+        function updateLocation() {
+            currentLocationSpan.textContent = '서울특별시 강남구'; // 실제 위치 API 연동 필요
+        }
+
+        function startWalk() {
+            if (isWalking) return;
+            isWalking = true;
+            startWalkBtn.classList.add('hidden');
+            stopWalkBtn.classList.remove('hidden');
+            
+            alert('산책을 시작합니다!');
+
+            // 1초마다 거리 및 포인트 증가 (가상)
+            walkInterval = setInterval(() => {
+                distance += 0.01; // 1초에 10미터 증가
+                points += 1;    // 1초에 1포인트 증가
+                walkDistanceSpan.textContent = distance.toFixed(2) + ' km';
+                earnedPointsSpan.textContent = points + ' P';
+            }, 1000);
+
+            updateLocation(); // 산책 시작 시 위치 업데이트
+        }
+
+        function stopWalk() {
+            if (!isWalking) return;
+            isWalking = false;
+            startWalkBtn.classList.remove('hidden');
+            stopWalkBtn.classList.add('hidden');
+            clearInterval(walkInterval);
+            alert(`산책을 종료합니다! 총 ${distance.toFixed(2)} km 산책하셨고, ${points} P를 적립했습니다.`);
+            
+            // 초기화 (필요하다면)
+            // distance = 0;
+            // points = 0;
+            // walkDistanceSpan.textContent = '0.00 km';
+            // earnedPointsSpan.textContent = '0 P';
+        }
+
+        startWalkBtn.addEventListener('click', startWalk);
+        stopWalkBtn.addEventListener('click', stopWalk);
+
+        // 페이지 로드 시 초기 위치 정보 설정
+        updateLocation();
+
 
         // 위로 가기 버튼 관련 스크립트
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');

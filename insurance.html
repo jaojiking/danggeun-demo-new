@@ -6,11 +6,14 @@
     <title>댕근 - 보험/장례</title>
     <meta name="robots" content="noindex, nofollow" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* 기본 폰트 및 배경색 */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f9fafb; /* bg-gray-50 */
+            /* 고정 헤더 때문에 콘텐츠가 헤더 아래로 가려지지 않도록 패딩 추가 */
+            padding-top: 80px; /* 헤더 높이에 따라 조정 */
         }
         /* 헤더 및 푸터 배경색 (진한 파랑) */
         header, footer {
@@ -91,18 +94,54 @@
             align-items: center; /* 세로 중앙 정렬 */
             justify-content: center; /* 가로 중앙 정렬 */
         }
+        /* 뼈다귀 아이콘 스타일 (새로 추가) */
+        .cute-bone-icon {
+            font-size: 38px; /* 헤더 아이콘 크기 */
+            color: #ffe0b2; /* 연한 노랑 */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            transform: rotate(-10deg);
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+        }
+        .cute-bone-icon:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+        /* 위로 가기 버튼 스타일 (새로 추가) */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1e40af; /* primary-dark */
+            color: white; /* 화살표 색상 */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 40; /* 드로어 오버레이보다 낮게, 콘텐츠보다 높게 */
+        }
+        #scrollToTopBtn:hover {
+            background-color: #1c388e;
+            transform: translateY(-3px);
+        }
     </style>
 </head>
 <body class="relative min-h-screen">
     <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
 
-    <header class="p-5 text-center bg-blue-800 relative z-10">
+    <header class="fixed inset-x-0 top-0 p-5 text-center bg-blue-800 z-50">
         <div class="container mx-auto flex items-center justify-between">
             <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
                 &#9776; </button>
             <h1 class="text-4xl font-bold text-white flex-grow">댕근 - 보험/장례</h1>
-            <a href="index.html" class="text-white text-2xl px-3 py-1 rounded-md hover:bg-blue-700 transition">
-                🏡
+            <a href="index.html" class="text-white px-2 py-1 rounded-md hover:bg-blue-700 transition">
+                <i class="fas fa-bone cute-bone-icon"></i>
             </a>
         </div>
     </header>
@@ -121,7 +160,12 @@
             </div>
 
             <ul>
-                <li><a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏡 홈</a></li>
+                <li>
+                    <a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300 flex items-center">
+                        <i class="fas fa-bone cute-bone-icon mr-3" style="font-size: 24px; transform: rotate(0deg); text-shadow: none;"></i>
+                        <span class="text-white">홈</span>
+                    </a>
+                </li>
                 <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
                 <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300">♻️ 중고 거래</a></li>
                 <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
@@ -145,25 +189,25 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/insurance_plan.jpg" alt="맞춤형 강아지 보험" class="card-img" />
+                <img src="images/insurance_plan.jpg" alt="맞춤형 강아지 보험" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/D1D5DB/4B5563?text=Image+Not+Found';" />
                 <div class="card-title">맞춤형 강아지 보험</div>
                 <div class="card-desc">다양한 보장 옵션과 합리적인 가격으로 우리 강아지에게 딱 맞는 보험을 선택하세요.</div>
                 <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">보험 플랜 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/claims_service.jpg" alt="간편한 보험 청구" class="card-img" />
+                <img src="images/claims_service.jpg" alt="간편한 보험 청구" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/D1D5DB/4B5563?text=Image+Not+Found';" />
                 <div class="card-title">간편한 보험 청구</div>
                 <div class="card-desc">복잡한 절차 없이, 스마트한 모바일 청구 시스템으로 빠르고 간편하게 보상받으세요.</div>
                 <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">청구 방법 안내</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/pet_funeral.jpg" alt="애견 장례 서비스" class="card-img" />
+                <img src="images/pet_funeral.jpg" alt="애견 장례 서비스" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/D1D5DB/4B5563?text=Image+Not+Found';" />
                 <div class="card-title">애견 장례 서비스</div>
                 <div class="card-desc">존중과 애정을 담아 우리 아이의 마지막을 아름답게 기억할 수 있도록 섬세하게 돕습니다.</div>
                 <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">장례 서비스 보기</button>
             </div>
             <div class="card w-full max-w-sm mx-auto">
-                <img src="images/memorial_goods.png" alt="추모 및 기념 용품" class="card-img" />
+                <img src="images/memorial_goods.png" alt="추모 및 기념 용품" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/D1D5DB/4B5563?text=Image+Not+Found';" />
                 <div class="card-title">추모 및 기념 용품</div>
                 <div class="card-desc">특별한 추억을 영원히 간직할 수 있는 다양한 추모 상품과 기념품을 제공합니다.</div>
                 <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">상품 둘러보기</button>
@@ -202,6 +246,9 @@
         </section>
     </main>
 
+    <button id="scrollToTopBtn" class="hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     <footer class="p-5 text-center bg-blue-800 text-white mt-10">
         <p>© 2025 댕근. All rights reserved.</p>
     </footer>
@@ -224,7 +271,7 @@
                 overlay.classList.remove('hidden');
                 setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
             } else {
-                // 드rower 닫기
+                // 드로어 닫기
                 drawer.classList.remove('translate-x-0');
                 drawer.classList.add('-translate-x-full');
                 overlay.classList.add('opacity-0'); // Fade out overlay
@@ -254,6 +301,32 @@
             // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
             // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
         }
+
+        // 위로 가기 버튼 관련 스크립트 (새로 추가)
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 200) { // 200px 이상 스크롤 시 버튼 표시
+                scrollToTopBtn.classList.remove('hidden');
+                scrollToTopBtn.style.opacity = '1';
+                scrollToTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+                scrollToTopBtn.style.transform = 'translateY(10px)';
+                scrollToTopBtn.addEventListener('transitionend', () => {
+                    if (scrollToTopBtn.style.opacity === '0') {
+                        scrollToTopBtn.classList.add('hidden');
+                    }
+                }, { once: true });
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 부드럽게 스크롤
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>댕근 - 주변 반려견</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+            /* 고정 헤더 때문에 콘텐츠가 헤더 아래로 가려지지 않도록 패딩 추가 */
+            padding-top: 80px; /* 헤더 높이에 따라 조정 */
+        }
+        header, footer {
+            background-color: #1e40af; /* primary-dark */
+        }
+        /* 아이콘 스타일 (index.html과 통일) */
+        .cute-bone-icon {
+            font-size: 38px;
+            color: #ffe0b2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            transform: rotate(-10deg);
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+        }
+        .cute-bone-icon:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+        /* 드로어 관련 스타일 (index.html과 통일) */
+        .drawer-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer-nav {
+            background-color: #1e293b;
+        }
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .dog-profile-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .dog-profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        /* 위로 가기 버튼 스타일 (다시 추가) */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1e40af; /* primary-dark */
+            color: white; /* 화살표 색상 */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 40; /* 드로어 오버레이보다 낮게, 콘텐츠보다 높게 */
+        }
+        #scrollToTopBtn:hover {
+            background-color: #1c388e;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+    <div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0" onclick="toggleDrawer()"></div>
+
+    <header class="fixed inset-x-0 top-0 p-5 text-center bg-blue-800 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <button id="menu-toggle" class="text-white text-3xl md:hidden" onclick="toggleDrawer()">
+                &#9776; </button>
+
+            <h1 class="text-4xl font-bold text-white flex-grow">댕근</h1>
+
+            <div class="flex items-center">
+                <a href="index.html" class="text-white px-2 py-1 rounded-md hover:bg-blue-700 transition">
+                    <i class="fas fa-bone cute-bone-icon"></i> </a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="side-drawer" class="drawer fixed top-0 left-0 w-64 h-full bg-slate-800 text-white z-50 transform -translate-x-full shadow-lg">
+        <div class="p-4 pt-6">
+            <div class="mb-6 pb-4 border-b border-gray-700">
+                <div id="user-info" class="flex items-center space-x-3 mb-4">
+                    <img id="profile-pic" src="https://via.placeholder.com/60/FFFFFF/000000?text=🐶" alt="Profile" class="w-16 h-16 rounded-full border-2 border-white">
+                    <div>
+                        <h3 class="text-xl font-semibold" id="user-name">로그인해주세요</h3>
+                        <p class="text-gray-400 text-sm" id="user-email">계정 정보를 확인하세요</p>
+                    </div>
+                </div>
+                <button id="auth-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onclick="toggleLogin()">로그인</button>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="index.html" class="block py-2 px-4 text-lg hover:text-blue-300 flex items-center">
+                        <i class="fas fa-bone cute-bone-icon mr-3" style="font-size: 24px; transform: rotate(0deg); text-shadow: none;"></i> 
+                        <span class="text-white">홈</span>
+                    </a>
+                </li>
+                <li><a href="walk.html" class="block py-2 px-4 text-lg hover:text-blue-300">🐾 동반 산책</a></li>
+                <li><a href="trade.html" class="block py-2 px-4 text-lg hover:text-blue-300">♻️ 중고 거래</a></li>
+                <li><a href="groupbuy.html" class="block py-2 px-4 text-lg hover:text-blue-300">🤝 공동 구매</a></li>
+                <li><a href="adopt.html" class="block py-2 px-4 text-lg hover:text-blue-300">❤️ 교배/입양</a></li>
+                <li><a href="grooming.html" class="block py-2 px-4 text-lg hover:text-blue-300">✂️ 미용/병원</a></li>
+                <li><a href="health.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏥 건강 체크</a></li>
+                <li><a href="insurance.html" class="block py-2 px-4 text-lg hover:text-blue-300">🛡️ 보험/장례</a></li>
+                <li><a href="card.html" class="block py-2 px-4 text-lg hover:text-blue-300">💳 전용 카드</a></li>
+                <li><a href="hotel.html" class="block py-2 px-4 text-lg hover:text-blue-300">🏨 애견 펜션/호텔</a></li>
+                <li><a href="training.html" class="block py-2 px-4 text-lg hover:text-blue-300">🎓 애견 훈련소</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="py-6">
+        <section class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🐶 주변 반려견 프로필</h2>
+            <p class="text-gray-600 text-lg mb-8 text-center max-w-2xl mx-auto">
+                현재 위치 주변에서 산책 중인 반려견 친구들의 프로필을 확인해 보세요!
+                함께 산책할 친구를 찾아볼 수 있습니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_01.jpg" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            댕댕이 <span class="ml-2 text-base font-normal text-gray-600">♂ / 2살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 골든 리트리버</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 사람을 좋아하고 활발해요!</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 강남역 근처</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 오후 6시~8시</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_02.png" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            멍뭉이 <span class="ml-2 text-base font-normal text-gray-600">♀ / 3살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 푸들</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 호기심 많고 장난기가 넘쳐요.</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 삼성동</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 오전 9시~11시</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_03.png" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            복실이 <span class="ml-2 text-base font-normal text-gray-600">♂ / 1살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 시바견</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 독립적이지만 애교도 많아요.</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 홍대입구역 근처</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 오후 2시~4시</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_04.jpg" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            초코 <span class="ml-2 text-base font-normal text-gray-600">♀ / 4살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 비숑 프리제</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 털이 복슬복슬하고 귀여워요.</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 여의도 공원</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 매일 아침</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_05.png" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            마루 <span class="ml-2 text-base font-normal text-gray-600">♂ / 5살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 진돗개</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 용감하고 충성심이 강해요.</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 남산 둘레길</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 오후 5시~7시</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+
+                <div class="dog-profile-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/dog_profile_06.jpg" alt="강아지 사진" class="w-full h-32 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1 flex items-center">
+                            보리 <span class="ml-2 text-base font-normal text-gray-600">♀ / 2살</span>
+                        </h3>
+                        <p class="text-gray-600 text-base mb-1">품종: 말티즈</p>
+                        <p class="text-gray-600 text-sm mb-1">성격: 작고 활발하며 사람을 잘 따라요.</p>
+                        <p class="text-gray-600 text-sm mb-1">위치: 잠실 석촌호수</p>
+                        <p class="text-gray-600 text-sm mb-2">산책 시간: 유동적</p>
+                        <div class="flex items-center text-green-600 mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>도보 체크 & 포인트 적립 가능</span>
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">산책 요청</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="walk.html" class="inline-block bg-gray-300 text-gray-800 text-lg font-bold py-3 px-8 rounded-lg hover:bg-gray-400 transition shadow-md">
+                    <i class="fas fa-arrow-left mr-2"></i> 동반 산책으로 돌아가기
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <button id="scrollToTopBtn" class="hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="p-5 text-center bg-blue-800 text-white mt-8">
+        <p>© 2025 댕근. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const drawer = document.getElementById('side-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        const profilePic = document.getElementById('profile-pic');
+        const authButton = document.getElementById('auth-button');
+        let isLoggedIn = false; // 로그인 상태 관리 변수
+
+        // 드로어 열고 닫기 함수
+        function toggleDrawer() {
+            if (drawer.classList.contains('-translate-x-full')) {
+                // 드로어 열기
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10); // Fade in overlay
+            } else {
+                // 드로어 닫기
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0'); // Fade out overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300); // Hide after transition
+            }
+        }
+
+        // 로그인 상태 토글 함수
+        function toggleLogin() {
+            isLoggedIn = !isLoggedIn; // 상태 반전
+
+            if (isLoggedIn) {
+                userName.textContent = '환영해요, 댕근님! 🐶';
+                userEmail.textContent = 'danggeun@example.com';
+                profilePic.src = 'https://via.placeholder.com/60/0000FF/FFFFFF?text=✔️'; // 로그인 시 아이콘 변경 예시
+                authButton.textContent = '로그아웃';
+                authButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                authButton.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                userName.textContent = '로그인해주세요';
+                userEmail.textContent = '계정 정보를 확인하세요';
+                profilePic.src = 'https://via.placeholder.com/60/FFFFFF/000000?text=🐶'; // 로그아웃 시 원래 아이콘
+                authButton.textContent = '로그인';
+                authButton.classList.remove('bg-red-500', 'hover:bg-red-600');
+                authButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+            // 로그인 상태 변경 후 드로어를 닫는 것은 UX에 따라 다르게 할 수 있습니다.
+            // toggleDrawer(); // 필요하다면 로그인/로그아웃 후 드로어 닫기
+        }
+
+        // 위로 가기 버튼 관련 스크립트 (다시 추가)
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 200) { // 200px 이상 스크롤 시 버튼 표시
+                scrollToTopBtn.classList.remove('hidden');
+                scrollToTopBtn.style.opacity = '1';
+                scrollToTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+                scrollToTopBtn.style.transform = 'translateY(10px)';
+                scrollToTopBtn.addEventListener('transitionend', () => {
+                    if (scrollToTopBtn.style.opacity === '0') {
+                        scrollToTopBtn.classList.add('hidden');
+                    }
+                }, { once: true });
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 부드럽게 스크롤
+            });
+        });
+    </script>
+</body>
+</html>
